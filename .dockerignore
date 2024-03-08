@@ -1,0 +1,16 @@
+
+**/.git*
+**/node_modules
+**/cypress
+**/.dockerignore
+**/eslintrc.json
+**/.gitignore
+**/docker_secrets
+**/Dockerfile
+**/Makefile
+**/postcss.config.js
+**/README.md
+**/tailwind.config.js
+**/tsconfig.json
+**/next.commit.txt
+**/.env*
