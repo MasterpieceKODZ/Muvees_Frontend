@@ -10,6 +10,7 @@ export default function Home() {
 				fuga nihil natus iusto aliquam, assumenda exercitationem corporis a
 				autem?
 			</p>
+			<h3>Benjamine Frankline</h3>
 		</main>
 	);
 }
