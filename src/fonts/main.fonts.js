@@ -14,5 +14,12 @@ export const titillium_web = localFont({
 	],
 	display: "swap",
 	subsets: ["latin"],
-	variable: "--font-titillium_web",
+	variable: "--font-titillium-web",
+});
+
+export const bungee_shade = localFont({
+	src: [{ path: "Bungee_Shade/BungeeShade-Regular.ttf", style: "normal" }],
+	display: "swap",
+	subsets: ["latin"],
+	variable: "--font-bungee-shade",
 });

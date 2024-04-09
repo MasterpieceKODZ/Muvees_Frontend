@@ -1,4 +1,4 @@
-import { titillium_web } from "@/fonts/main.fonts";
+import { bungee_shade, titillium_web } from "@/fonts/main.fonts";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -14,14 +14,14 @@ const config: Config = {
 				"gradient-conic":
 					"conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
 			},
-		},
-
-		colors: {
-			black_blue: "#010019",
-		},
-		fontFamily: {
-			ojuju: ["var(--font-ojuju)"],
-			titillium_web: ["var(--font-titillium_web)"],
+			colors: {
+				black_blue: "#010019",
+			},
+			fontFamily: {
+				ojuju: ["var(--font-ojuju)"],
+				titillium_web: ["var(--font-titillium-web)"],
+				bungee_shade: ["var(--font-bungee-shade)"],
+			},
 		},
 	},
 	plugins: [],
