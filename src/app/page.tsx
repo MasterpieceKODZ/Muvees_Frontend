@@ -26,6 +26,7 @@ export default function Home() {
 	};
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
+
 			<div className="tw-min-h-screen tw-flex tw-items-center tw-justify-center tw-bg-black tw-relative">
 				<div className=" tw-bg-yellow-900 tw-p-8 tw-rounded tw-shadow-md tw-w-full tw-max-w-md">
 					<h2 className="tw-text-3xl tw-font-titillium_web tw-font-extrabold tw-text-yellow-400 tw-mb-4">
@@ -139,6 +140,7 @@ export default function Home() {
 					MUVEES
 				</Link>
 			</div>
+
 		</main>
 	);
 }

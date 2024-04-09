@@ -1,0 +1,62 @@
+name: Deploy Cormparse Frontend
+run-name: cormparse frontend service ci-cd workflow
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  build_publish_docker_image:
+    name: Test, Build And Publish cormparse frontend service docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4.1.0
+      - name: Install production deps
+        run: npm install
+      - name: next cache
+        uses: actions/cache@v3
+        with:
+          # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      # compile next production build
+      - name: Compile next production build
+        run: npm run build
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            masterpiecekodz/muvees_frontend
+          tags: |
+            type=raw,value=latest
+            type=semver,pattern={{version}},value=v1.0.0
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          push: false
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "masterpiecekodz/cormparse_frontend:latest"
+          format: "table"
+          exit-code: "1"
+          vuln-type: "os,library"
+          severity: "CRITICAL"
+          ignore-unfixed: true
+      # I am pushhing manually bcos I want to be sure there is no vulnerability before pushing image.
+      - run: docker push masterpiecekodz/muvees_frontend:1.0.0
+      - run: docker push masterpiecekodz/muvees_frontend:latest
