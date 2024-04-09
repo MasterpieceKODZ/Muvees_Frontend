@@ -1,6 +1,6 @@
 "use client";
 import Spinner from "@/icons/spinner";
-import { submitSignInForm } from "@/ui_controllers/auth/submit.login.form";
+import { submitCreateAccountForm } from "@/ui_controllers/auth/create.account";
 import {
 	validatePassword,
 	validateUsername,
@@ -10,40 +10,38 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Home() {
+export default function CreateAccount() {
 	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
 
 	getSession().then((ses: any) => {
-		console.log("session");
-		console.log(ses);
-
 		if (ses) router.push("/movies-dashboard");
 	});
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
+
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-between p-24">
 			<div className="tw-min-h-screen tw-flex tw-items-center tw-justify-center tw-bg-black tw-relative">
 				<div className=" tw-bg-yellow-900 tw-p-8 tw-rounded tw-shadow-md tw-w-full tw-max-w-md">
 					<h2 className="tw-text-3xl tw-font-titillium_web tw-font-extrabold tw-text-yellow-400 tw-mb-4">
-						Login
+						Create Account
 					</h2>
-					<form onSubmit={submitSignInForm}>
+					<form onSubmit={submitCreateAccountForm}>
 						<div className="tw-mb-4">
 							<label
-								htmlFor="login_username"
+								htmlFor="signup_username"
 								className="tw-block tw-text-gray-300 tw-text-sm tw-font-bold tw-font-titillium_web tw-mb-2">
 								Username
 							</label>
 							<input
 								type="text"
-								id="login_username"
-								name="username"
+								id="signup_username"
 								maxLength={20}
 								minLength={3}
+								name="username"
 								onChange={validateUsername}
 								className="tw-w-full tw-p-2 tw-border tw-text-black tw-border-yellow-300 tw-rounded focus:tw-outline-none focus:tw-border-yellow-200"
 								placeholder="Enter your username"
@@ -52,14 +50,14 @@ export default function Home() {
 						{/* password */}
 						<div className="tw-mb-6">
 							<label
-								htmlFor="login_password"
+								htmlFor="signup_password"
 								className="tw-block tw-text-gray-300 tw-text-sm tw-font-bold tw-font-titillium_web tw-mb-2">
 								Password
 							</label>
 							<div className="tw-relative">
 								<input
 									type={showPassword ? "text" : "password"}
-									id="login_password"
+									id="signup_password"
 									name="password"
 									maxLength={50}
 									minLength={8}
@@ -110,7 +108,7 @@ export default function Home() {
 						<button
 							type="submit"
 							className="tw-w-full tw-bg-black tw-text-yellow-300 tw-font-titillium_web tw-text-center tw-font-semibold tw-py-2 tw-px-4 tw-rounded hover:tw-bg-gray-800 tw-transition tw-duration-300 tw-flex tw-justify-center tw-items-center">
-							<span className=" tw-w-max tw-h-max tw-mr-3">Sign In</span>
+							<span className=" tw-w-max tw-h-max tw-mr-3">Sign Up</span>
 							<span
 								id="auth_spinner"
 								className=" tw-hidden">
@@ -118,20 +116,11 @@ export default function Home() {
 							</span>
 						</button>
 					</form>
-
 					<p
 						id="auth_form_err_txt"
 						className=" tw-font-titillium_web tw-text-[15px] tw-text-yellow-200 tw-text-center tw-mt-3 tw-hidden">
 						your username or password contains invalid characters
 					</p>
-
-					<div className="tw-mt-4 tw-text-center">
-						<a
-							href="/create-account"
-							className="tw-text-yellow-300 tw-font-titillium_web tw-font-semibold hover:tw-underline">
-							Create Account
-						</a>
-					</div>
 				</div>
 				<Link
 					href="/"
